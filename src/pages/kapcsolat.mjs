@@ -1,6 +1,8 @@
 export default (h) => {
   const opts = h.SYSTEMS.map((s) => `<option value="${s.id}">${s.tab}</option>`).join('');
   const towns = h.TOWNS.map((t) => `<option value="${h.esc(t.n)}">`).join('');
+  // ponytail: quotes go straight to the Gmail inbox (info@ only forwards there). After FormSubmit activation, swap the address for the random alias from the activation mail to hide it from scrapers.
+  const formTo = 'gepoxy2024@gmail.com';
   return {
     path: 'kapcsolat.html',
     crumb: 'Kapcsolat',
@@ -24,7 +26,7 @@ export default (h) => {
         </div>
         <p class="note">Fotókat és alaprajzot e-mailben is küldhet: <a href="mailto:${h.SITE.email}">${h.SITE.email}</a></p>
       </div>
-      <form class="form" id="ajanlat" action="https://formsubmit.co/${h.SITE.email}" method="post" data-form>
+      <form class="form" id="ajanlat" action="https://formsubmit.co/${formTo}" method="post" data-form>
         <input type="hidden" name="_subject" value="Ajánlatkérés — gepoxy.hu">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_next" value="${h.SITE.url}/kapcsolat.html?ok=1#ajanlat">
