@@ -414,6 +414,7 @@ ${p.noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" 
 <script type="application/ld+json">${JSON.stringify(graph)}</script>
 </head>
 <body class="${p.bodyClass || ''}">
+<!--email_off-->
 <a class="skip" href="#tartalom">Ugrás a tartalomra</a>
 <header class="hdr" data-hdr>
   <div class="hdr-in">
@@ -424,7 +425,7 @@ ${p.noindex ? '<meta name="robots" content="noindex">' : `<link rel="canonical" 
         <li class="nav-m"><a href="${base}kapcsolat.html">Kapcsolat</a></li>
       </ul>
     </nav>
-    <a class="hdr-tel" href="tel:${SITE.tel}">${ICON.phone}<span>${SITE.phone}</span></a>
+    <a class="hdr-tel" href="tel:${SITE.tel}" aria-label="Hívás: ${SITE.phone}">${ICON.phone}<span>${SITE.phone}</span></a>
     <a class="btn btn-amber btn-sm hdr-cta" href="${base}kapcsolat.html#ajanlat">Ajánlatkérés</a>
     <button class="burger" type="button" aria-controls="nav" aria-expanded="false" aria-label="Menü"><span></span><span></span></button>
   </div>
@@ -449,6 +450,7 @@ ${body}
 </footer>
 <dialog class="lb" data-lb aria-label="Kép nagyítva"><form method="dialog"><button class="lb-x" aria-label="Bezárás">×</button></form><img alt=""><p></p></dialog>
 <nav class="dock" aria-label="Gyors kapcsolat"><a href="tel:${SITE.tel}">${ICON.phone}Hívás</a><a class="amber" href="${base}kapcsolat.html#ajanlat">Ajánlatkérés ${ICON.arrow}</a></nav>
+<!--/email_off-->
 </body>
 </html>
 `;

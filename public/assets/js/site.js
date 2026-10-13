@@ -168,9 +168,10 @@
     .then(() => Promise.all(($('[data-hero-title]', hero).getAnimations?.({ subtree: true }) || []).map((a) => a.finished.catch(() => {}))))
     .then(() => initHero(hero));
 
-  function initHero(hero) {
+  async function initHero(hero) {
     const cv = $('.hero-gl', hero), title = $('[data-hero-title]', hero);
-    const gl = cv.getContext('webgl', { antialias: false, alpha: false, preserveDrawingBuffer: false });
+    // no GPU (software rasterizer) → a fullscreen shader would block the main thread; keep the CSS hero
+    const gl = cv.getContext('webgl', { antialias: false, alpha: false, preserveDrawingBuffer: false, failIfMajorPerformanceCaveat: true });
     if (!gl) return;
     const VS = 'attribute vec2 p;varying vec2 vUv;void main(){vUv=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
     const FS = `precision highp float;
@@ -232,12 +233,14 @@ void main(){
   col = mix(col, vec3(.03,.029,.03), smoothstep(14.,70.,z));
   gl_FragColor = vec4(col,1.);
 }`;
-    const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return gl.getShaderParameter(s, gl.COMPILE_STATUS) ? s : (console.warn(gl.getShaderInfoLog(s)), null); };
+    const sh = (type, src) => { const s = gl.createShader(type); gl.shaderSource(s, src); gl.compileShader(s); return s; };
     const vs = sh(gl.VERTEX_SHADER, VS), fs = sh(gl.FRAGMENT_SHADER, FS);
-    if (!vs || !fs) return;
     const prog = gl.createProgram();
     gl.attachShader(prog, vs); gl.attachShader(prog, fs); gl.linkProgram(prog);
-    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return;
+    // the D3D/HLSL compile takes ~0.5 s; poll it instead of blocking the main thread on the first status query
+    const par = gl.getExtension('KHR_parallel_shader_compile');
+    if (par) while (!gl.getProgramParameter(prog, par.COMPLETION_STATUS_KHR)) await new Promise(requestAnimationFrame);
+    if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return console.warn(gl.getShaderInfoLog(fs) || gl.getProgramInfoLog(prog));
     gl.useProgram(prog);
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
