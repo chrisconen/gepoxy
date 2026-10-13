@@ -19,7 +19,7 @@ export default (h) => ({
     <h2>4. Megőrzési idő</h2>
     <p>Ha az ajánlatkérésből nem jön létre szerződés, az adatokat legfeljebb 1 évig őrizzük meg, majd töröljük. Szerződés esetén a számviteli és egyéb jogszabályi kötelezettségek szerinti ideig.</p>
     <h2>5. Adatfeldolgozók</h2>
-    <p>Az űrlap adatait a FormSubmit (formsubmit.co) szolgáltatás továbbítja e-mailben az adatkezelőnek. A weboldal tárhelye a GitHub Pages (GitHub, Inc., USA), a domain névszerver- és hálózati szolgáltatója a Cloudflare, Inc. (USA); ezek a szolgáltatók a kiszolgáláshoz technikai naplóadatokat (pl. IP-cím) kezelhetnek. Az e-mail-fiók szolgáltatója: Google LLC (Gmail, USA). Az adatokat egyéb harmadik félnek nem adjuk át, marketing célra nem használjuk.</p>
+    <p>Az űrlap adatait a Web3Forms (web3forms.com) szolgáltatás továbbítja e-mailben az adatkezelőnek. A weboldal tárhelye a GitHub Pages (GitHub, Inc., USA), a domain névszerver- és hálózati szolgáltatója a Cloudflare, Inc. (USA); ezek a szolgáltatók a kiszolgáláshoz technikai naplóadatokat (pl. IP-cím) kezelhetnek. Az e-mail-fiók szolgáltatója: Google LLC (Gmail, USA). Az adatokat egyéb harmadik félnek nem adjuk át, marketing célra nem használjuk.</p>
     <h2>6. Sütik</h2>
     <p>A weboldal nem használ követő vagy marketing sütiket, és nem futtat látogatottságmérő szoftvert. Külső betűtípust vagy térképet nem tölt be harmadik féltől.</p>
     <h2>7. Az érintett jogai</h2>

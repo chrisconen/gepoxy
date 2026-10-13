@@ -1,8 +1,8 @@
 export default (h) => {
   const opts = h.SYSTEMS.map((s) => `<option value="${s.id}">${s.tab}</option>`).join('');
   const towns = h.TOWNS.map((t) => `<option value="${h.esc(t.n)}">`).join('');
-  // ponytail: quotes go straight to the Gmail inbox (info@ only forwards there). After FormSubmit activation, swap the address for the random alias from the activation mail to hide it from scrapers.
-  const formTo = 'gepoxy2024@gmail.com';
+  // ponytail: Web3Forms key is public by design — it can only send to the inbox it was issued for (gepoxy2024@gmail.com; info@ just forwards there). Free plan: 250 mails/month.
+  const W3F_KEY = '6bf73d03-31f3-40c1-a697-65ee091b3fbf';
   return {
     path: 'kapcsolat.html',
     crumb: 'Kapcsolat',
@@ -26,10 +26,11 @@ export default (h) => {
         </div>
         <p class="note">Fotókat és alaprajzot e-mailben is küldhet: <a href="mailto:${h.SITE.email}">${h.SITE.email}</a></p>
       </div>
-      <form class="form" id="ajanlat" action="https://formsubmit.co/${formTo}" method="post" data-form>
-        <input type="hidden" name="_subject" value="Ajánlatkérés — gepoxy.hu">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="${h.SITE.url}/kapcsolat.html?ok=1#ajanlat">
+      <form class="form" id="ajanlat" action="https://api.web3forms.com/submit" method="post" data-form>
+        <input type="hidden" name="access_key" value="${W3F_KEY}">
+        <input type="hidden" name="subject" value="Ajánlatkérés — gepoxy.hu">
+        <input type="hidden" name="from_name" value="gepoxy.hu">
+        <input type="hidden" name="redirect" value="${h.SITE.url}/kapcsolat.html?ok=1#ajanlat">
         <div class="f-row">
           <label><span>Név *</span><input name="nev" required autocomplete="name" maxlength="120"></label>
           <label><span>Cég</span><input name="ceg" autocomplete="organization" maxlength="120"></label>
@@ -44,7 +45,7 @@ export default (h) => {
         </div>
         <label><span>Felhasználási környezet</span><select name="rendszer"><option value="">Válasszon…</option>${opts}<option value="egyeb">Egyéb / nem tudom</option></select></label>
         <label><span>Üzenet</span><textarea name="uzenet" rows="5" maxlength="4000" placeholder="Pl. 400 m² raktár, targoncaforgalom, a régi bevonat felvált, a munkát augusztusi leállásra kellene ütemezni."></textarea></label>
-        <label class="hp" aria-hidden="true">Weboldal<input name="_honey" tabindex="-1" autocomplete="off"></label>
+        <label class="hp" aria-hidden="true">Weboldal<input type="checkbox" name="botcheck" tabindex="-1"></label>
         <label class="f-check"><input type="checkbox" name="adatkezeles" required><span>Elolvastam és elfogadom az <a href="adatkezeles.html" target="_blank">adatkezelési tájékoztatót</a>. *</span></label>
         <button class="btn btn-amber btn-lg" type="submit">Ajánlatkérés elküldése ${h.ICON.arrow}</button>
         <p class="f-msg" role="status" aria-live="polite"></p>

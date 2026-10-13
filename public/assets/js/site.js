@@ -147,8 +147,8 @@
       if (!form.checkValidity()) { form.reportValidity(); return; }
       btn.disabled = true; msg.className = 'f-msg'; msg.textContent = 'Küldés…';
       try {
-        // FormSubmit AJAX endpoint answers {success: "true"|"false", message}
-        const r = await fetch(form.action.replace('formsubmit.co/', 'formsubmit.co/ajax/'), { method: 'POST', body: new FormData(form), headers: { Accept: 'application/json' } });
+        // Web3Forms answers {success: true|false, message}
+        const r = await fetch(form.action, { method: 'POST', body: JSON.stringify(Object.fromEntries(new FormData(form))), headers: { 'Content-Type': 'application/json', Accept: 'application/json' } });
         const j = await r.json();
         if (!r.ok || String(j.success) !== 'true') throw new Error('Az üzenet küldése nem sikerült.');
         form.reset();
