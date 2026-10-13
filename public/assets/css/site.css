@@ -55,7 +55,7 @@
 
 /* ================= base ================= */
 *, *::before, *::after { box-sizing: border-box; }
-html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; scroll-padding-top: calc(var(--hdr) + 16px); }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: calc(var(--hdr) + 16px); }
 body { margin: 0; background: var(--ink); color: var(--text); font: 400 17px/1.6 var(--font); -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; overflow-x: clip; }
 body::after { content: ''; position: fixed; inset: 0; z-index: 100; pointer-events: none; opacity: .055;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
@@ -206,6 +206,8 @@ h2 { font-size: clamp(34px, 5vw, 76px); line-height: .98; font-stretch: 112%; le
 
 /* ================= sections ================= */
 .sec { position: relative; padding-block: clamp(84px, 11vw, 164px); }
+/* ponytail: off-screen sections skip style/layout until scrolled near; the initial render was one ~0.4 s layout of the whole page */
+.sec { content-visibility: auto; contain-intrinsic-size: auto 900px; }
 .sec-dark2 { background: var(--ink-2); border-block: 1px solid var(--line); }
 .sec-manifesto { isolation: isolate; overflow: hidden; }
 .sec-manifesto::before { content: ''; position: absolute; z-index: -1; right: 0; top: 0; bottom: 0; width: 58%; opacity: .42; background: url(../img/gyanta-ontes.webp) center/cover;

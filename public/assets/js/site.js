@@ -9,7 +9,7 @@
   const hdr = $('[data-hdr]');
   const onScroll = () => hdr && hdr.classList.toggle('solid', scrollY > 40);
   addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  requestAnimationFrame(onScroll); // reading scrollY right away would force a synchronous layout of the whole page
   const burger = $('.burger'), nav = $('#nav');
   const setNav = (open) => {
     burger.setAttribute('aria-expanded', open);
