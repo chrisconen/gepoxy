@@ -163,16 +163,19 @@
 
   /* ---------- hero: wet epoxy floor (WebGL) ---------- */
   const hero = $('[data-hero]');
-  // wait for fonts + the title's intro animation, so the reflection texture matches the settled text
-  if (hero) (document.fonts ? document.fonts.ready : Promise.resolve())
-    .then(() => Promise.all(($('[data-hero-title]', hero).getAnimations?.({ subtree: true }) || []).map((a) => a.finished.catch(() => {}))))
-    .then(() => initHero(hero));
+  if (hero) initHero(hero);
 
   async function initHero(hero) {
     const cv = $('.hero-gl', hero), title = $('[data-hero-title]', hero);
+    // fonts + the title's intro animation, so the reflection texture matches the settled text
+    const settled = (document.fonts ? document.fonts.ready : Promise.resolve())
+      .then(() => Promise.all((title.getAnimations?.({ subtree: true }) || []).map((a) => a.finished.catch(() => {}))));
     // no GPU (software rasterizer) → a fullscreen shader would block the main thread; keep the CSS hero
     const gl = cv.getContext('webgl', { antialias: false, alpha: false, preserveDrawingBuffer: false, failIfMajorPerformanceCaveat: true });
     if (!gl) return;
+    // not every browser flags SwiftShader/llvmpipe as a caveat; they render a fullscreen shader at ~0.3 s per frame
+    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+    if (dbg && /swiftshader|llvmpipe|software/i.test(gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL))) return;
     const VS = 'attribute vec2 p;varying vec2 vUv;void main(){vUv=p*.5+.5;gl_Position=vec4(p,0.,1.);}';
     const FS = `precision highp float;
 varying vec2 vUv;
@@ -241,6 +244,7 @@ void main(){
     const par = gl.getExtension('KHR_parallel_shader_compile');
     if (par) while (!gl.getProgramParameter(prog, par.COMPLETION_STATUS_KHR)) await new Promise(requestAnimationFrame);
     if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) return console.warn(gl.getShaderInfoLog(fs) || gl.getProgramInfoLog(prog));
+    await settled; // the compile above already ran in parallel with the font load + title animation
     gl.useProgram(prog);
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1, -1, 3, -1, -1, 3]), gl.STATIC_DRAW);
@@ -316,7 +320,7 @@ void main(){
       raf = 0;
       if (!vis || document.hidden) return;
       const t = now();
-      draw(t, Math.min(1, Math.max(0, (t - 0.15) / 2.6)));
+      draw(t, Math.min(1, Math.max(0, (t - 0.15) / 1.8)));
       raf = requestAnimationFrame(frame);
     };
     const start = () => { if (RM) draw(4, 1); else if (!raf) raf = requestAnimationFrame(frame); };
