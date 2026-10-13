@@ -1,0 +1,138 @@
+{
+"husipari-uzem-01-kiindulas": [
+1200,
+1600
+],
+"husipari-uzem-02-lefolyok": [
+1200,
+1600
+],
+"husipari-uzem-03-aljzatjavitas": [
+1200,
+1600
+],
+"husipari-uzem-04-kiegyenlites": [
+1200,
+1600
+],
+"husipari-uzem-05-alapozas": [
+1200,
+1600
+],
+"husipari-uzem-06-bevonat": [
+1600,
+1200
+],
+"husipari-uzem-07-atadas": [
+1200,
+1600
+],
+"husipari-uzem-kesz-folyoka": [
+1600,
+1200
+],
+"husipari-uzem-kesz-folyoso": [
+1200,
+1600
+],
+"esd-padlo-01": [
+1200,
+1600
+],
+"esd-padlo-02": [
+1200,
+1600
+],
+"esd-padlo-03": [
+720,
+960
+],
+"uzlet-mugyanta-padlo": [
+1041,
+1536
+],
+"menhely-padlo-01": [
+1084,
+1600
+],
+"menhely-padlo-02": [
+1200,
+1600
+],
+"garazs-padlo-elotte": [
+1200,
+1600
+],
+"garazs-padlo-utana": [
+1200,
+1600
+],
+"garazs-padlo-01": [
+1084,
+1600
+],
+"garazs-padlo-02": [
+1084,
+1600
+],
+"terasz-elotte": [
+1200,
+1600
+],
+"terasz-utana": [
+1200,
+1600
+],
+"terasz-bevonat": [
+1084,
+1600
+],
+"lepcso-elotte": [
+1200,
+1600
+],
+"lepcso-utana": [
+1200,
+1600
+],
+"lepcso-javitas": [
+1200,
+1600
+],
+"lepcso-javitas-reszlet": [
+1600,
+1200
+],
+"lepcso-kesz": [
+1200,
+1600
+],
+"ipari-csarnok": [
+1600,
+864
+],
+"kereskedelmi-folyoso": [
+1600,
+864
+],
+"vizszigeteles-terasz": [
+1600,
+900
+],
+"aljzat-elokeszites": [
+1600,
+900
+],
+"elelmiszeripari-padlo": [
+1600,
+900
+],
+"parkolohaz-bevonat": [
+1600,
+900
+],
+"gyanta-ontes": [
+1600,
+900
+]
+}
