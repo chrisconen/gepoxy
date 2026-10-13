@@ -16,6 +16,7 @@ export const SITE = {
   phone: '+36 20 407 8064',
   tel: '+36204078064',
   email: 'info@gepoxy.hu',
+  facebook: 'https://www.facebook.com/mugyantapadlogyor/',
   street: 'Szabadság út 62',
   city: 'Bágyogszovát',
   zip: '9145',
@@ -30,6 +31,7 @@ const ICON = {
   phone: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h4l2 5-2.5 1.5a11 11 0 0 0 6 6L16 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 5a2 2 0 0 1 2-2" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
   mail: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5h18v14H3zm0 0 9 8 9-8" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
   pin: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 22s7-7.2 7-13a7 7 0 0 0-14 0c0 5.8 7 13 7 13Zm0-10a3 3 0 1 0 0-6 3 3 0 0 0 0 6" fill="none" stroke="currentColor" stroke-width="2"/></svg>',
+  fb: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M16 3h-2.5A4.5 4.5 0 0 0 9 7.5V10H6v4h3v7h4v-7h3l1-4h-4V8a1 1 0 0 1 1-1h2Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
   check: '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="m4 12 5 5L20 6" fill="none" stroke="currentColor" stroke-width="2.4"/></svg>',
 };
 const MARK = '<svg class="mark" viewBox="0 0 40 40" aria-hidden="true"><path d="M20 3 37 11.5 20 20 3 11.5Z" fill="var(--amber)"/><path d="M3 18.5 20 27l17-8.5" fill="none" stroke="currentColor" stroke-width="3.2"/><path d="M3 25.5 20 34l17-8.5" fill="none" stroke="currentColor" stroke-width="3.2" opacity=".45"/></svg>';
@@ -376,6 +378,7 @@ function layout(p, v) {
     geo: { '@type': 'GeoCoordinates', latitude: SITE.hq[0], longitude: SITE.hq[1] },
     areaServed: TOWNS.map((t) => ({ '@type': 'City', name: t.n.split(' · ')[0] })),
     knowsLanguage: ['hu'],
+    sameAs: [SITE.facebook],
   };
   const crumbs = { '@type': 'BreadcrumbList', itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Főoldal', item: SITE.url + '/' }, ...(p.path === 'index.html' ? [] : [{ '@type': 'ListItem', position: 2, name: p.crumb || p.title, item: url }])] };
   const graph = { '@context': 'https://schema.org', '@graph': [business, crumbs, ...(p.schema || [])] };
@@ -438,7 +441,7 @@ ${body}
     <div class="ftr-grid">
       <div><h2>Szolgáltatások</h2><ul>${NAV.slice(0, 4).map(([h, t]) => `<li><a href="${base}${h}">${t}</a></li>`).join('')}<li><a href="${base}referenciak.html">Referenciák</a></li></ul></div>
       <div><h2>Régiók</h2><ul>${regions}</ul><p class="ftr-towns">Győr · Mosonmagyaróvár · Sopron · Pápa · Tatabánya · Komárom · Dunaszerdahely · Somorja · Érsekújvár · Párkány · Veszprém · Siófok · Balatonfüred · Keszthely</p></div>
-      <div><h2>Kapcsolat</h2><address><a href="tel:${SITE.tel}">${ICON.phone}${SITE.phone}</a><a href="mailto:${SITE.email}">${ICON.mail}${SITE.email}</a><span>${ICON.pin}${SITE.zip} ${SITE.city}, ${SITE.street}</span></address></div>
+      <div><h2>Kapcsolat</h2><address><a href="tel:${SITE.tel}">${ICON.phone}${SITE.phone}</a><a href="mailto:${SITE.email}">${ICON.mail}${SITE.email}</a><a href="${SITE.facebook}" target="_blank" rel="noopener">${ICON.fb}Facebook</a><span>${ICON.pin}${SITE.zip} ${SITE.city}, ${SITE.street}</span></address></div>
     </div>
     <div class="ftr-bot"><span>© ${new Date().getFullYear()} G-Epoxy. Minden jog fenntartva.</span><a href="${base}adatkezeles.html">Adatkezelési tájékoztató</a></div>
     <a class="credit" href="https://conendigital.hu" target="_blank" rel="noopener"><span class="credit-l"><small>Kivitelezés</small><span class="credit-k">Weboldal &amp; webáruház készítés</span></span><span class="credit-b">conendigital.hu<span class="credit-go">${ICON.arrow}</span></span></a>

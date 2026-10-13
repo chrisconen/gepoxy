@@ -22,6 +22,7 @@ export default (h) => {
         <div class="contact-card">
           <a class="cc-tel" href="tel:${h.SITE.tel}">${h.ICON.phone}<span>${h.SITE.phone}</span></a>
           <a href="mailto:${h.SITE.email}">${h.ICON.mail}<span>${h.SITE.email}</span></a>
+          <a href="${h.SITE.facebook}" target="_blank" rel="noopener">${h.ICON.fb}<span>Facebook<small>Kövessen minket ↗</small></span></a>
           <a href="https://www.google.com/maps/search/?api=1&amp;query=${encodeURIComponent(`${h.SITE.zip} ${h.SITE.city}, ${h.SITE.street}`)}" rel="noopener" target="_blank">${h.ICON.pin}<span>${h.SITE.zip} ${h.SITE.city}, ${h.SITE.street}<small>Útvonaltervezés ↗</small></span></a>
         </div>
         <p class="note">Fotókat és alaprajzot e-mailben is küldhet: <a href="mailto:${h.SITE.email}">${h.SITE.email}</a></p>
